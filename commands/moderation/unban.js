@@ -28,7 +28,7 @@ module.exports = {
             message.guild.members.unban(bUser.user)
             const banembed = new Discord.MessageEmbed()
             .setThumbnail()
-            .setDescription(`${User.tag} has been unbaned`)
+            .setDescription(`${User.tag} has been unbaned!`)
             .setTimestamp()
             message.channel.send(banembed).then((m) => m.delete({ timeout: 15000 }));  
             
