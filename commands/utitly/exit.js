@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const db = require("quick.db");
 const echa = new db.table('echa');
+const { kolor, defaultPrefix } = require('../../config.json')
 
 module.exports = {
     name: "escreen",
@@ -12,7 +13,15 @@ module.exports = {
         .setColor(`${kolor}`)
         .setDescription(`<:Cross:847905173010382858> **You dont have permission!**`)
         if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send(permoff).then((m) => m.delete({ timeout: 15000 }));  
-        if (args.length < 3) return message.channel.send('nunu')
+        const corect = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setTitle(`Incorrect command usage`)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"exit #channel #hexcolor #message```")
+        .addField("```Example usage```", "``welcome #welcome #f8d4dc Bye bro!``", true)
+        .addField("```Needs permision to use```", "``ADMINISTRATOR``", true)
+        .setTimestamp()
+        .setFooter(`${message.author.username}`, message.author.avatarURL())
+        if (!args[0] || !args[1] || !args[2] ) return message.channel.send(corect).then((m) => m.delete({ timeout: 5000 }));  
 
         const channel = message.mentions.channels.first()
         const color = args[1]
