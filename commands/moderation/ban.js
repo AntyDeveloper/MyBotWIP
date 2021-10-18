@@ -1,67 +1,67 @@
 const Discord = require('discord.js');
 const ms = require('ms')
-const { defaultPrefix } = require('../../config.json')
+const { defaultPrefix, kolor } = require('../../config.json')
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
+const embed = new Discord.MessageEmbed()
+.setColor(kolor)
 module.exports = {
     name: 'ban',
     description: 'Command to ban users!',
-    async execute(client, message, args) {
+    async execute(client, message, args, guild) {
         message.delete()
         const user = message.mentions.members.first()
-        const author = message.author
-        const iduser = user.id;
-        const User1 = client.users.cache.get(iduser)
-        const authorRole = message.member.roles.highest;
 
-        const targetRole = user.roles.highest;
+        const author = message.author
+        const authorRole = message.member.roles.highest;
+        const permoff = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setDescription(`<:Cross:847905173010382858> **You dont have permission to use this command!**`)
+        .setTimestamp()
+        .setFooter(`${author.username}`, author.avatarURL())
         let bantime = args[1];
         let reason = args.slice(2).join(" ")
+        const corect = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setTitle(`Incorrect command usage`)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"ban @user @time @reason```")
+        .addField("```Example usage```", "``ban @AntyDev 1h my reason``", true)
+        .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
+        .setTimestamp()
+        .setFooter(`${author.username}`, author.avatarURL())
+        if (!args[0] || !args[1] ) return message.channel.send(corect).then((m) => m.delete({ timeout: 5000 }));  
         
-
-        if (!args[0] || !args[1] || !reason) {
-            message.channel.send("**You dont mention user!\n\nCorrect usage:**\n ```"+ defaultPrefix +"ban @user @time @reason```").then((m) => m.delete({ timeout: 5000 }));  
-            } else {
-        if(author === user){
-            return message.channel.send('You cant ban your person!').then((m) => m.delete({ timeout: 15000 })); 
-        }
-        else {
-            if(targetRole <= authorRole) {
-                return message.channel.send('This person have highhest role!').then((m) => m.delete({ timeout: 15000 })); 
-            
-    } else {
-        if(message.guild.ownerID == message.author.id) {
-            user.ban({
-                reason: `${author.tag} banned ${User1.tag} from reason: ${reason}.`,
-            })
-
-            const banembed = new Discord.MessageEmbed()
-            .setThumbnail()
-            .setDescription(`${user} has banned from reason: ${reason}.`)
-            .setTimestamp()
-            message.channel.send(banembed).then((m) => m.delete({ timeout: 15000 }));  
-            user.message.send()
+             else {
+                if (!message.member.hasPermission('BAN_MEMBERS')) {
+                    return message.channel.send(permoff)
+                } 
+            if(user.roles.highest.position > message.guild.members.resolve(author).roles.highest.position) {
+                const highest = new Discord.MessageEmbed()
+                .setColor(`${kolor}`)
+                .setDescription(`<:comment:898655104150929449> **This person have highest role!**`)
+                .setTimestamp()
+                .setFooter(`${author.username}`, author.avatarURL())
+                message.channel.send(highest).then((m) => m.delete({ timeout: 15000 })); 
+        
 
         } else {
 
-        
-        if (user.hasPermission('BAN_MEMBERS')) {
-            return message.channel.send('You cant ban this person!')
             
-        } else {
+            user.send(`You banned from ${guild.name}.`)
             user.ban({
-                reason: `${author.tag} banned ${User1.tag} from reason: ${reason}.`,
+                reason: `${author.tag} banned ${user.user.tag} from reason: ${reason}.`,
             })
             setTimeout(function(){
                 message.guild.members.unban(user)
               }, ms(bantime)); 
             const banembed = new Discord.MessageEmbed()
-            .setThumbnail()
+            .setThumbnail(user.user.displayAvatarURL())
             .setDescription(`${user} has banned from reason: ${reason}.`)
+            .setColor(kolor)
             .setTimestamp()
+            .setFooter(`${author.username}`, author.avatarURL())
             message.channel.send(banembed).then((m) => m.delete({ timeout: 15000 }));  
-             user.message.send()
-    }}}
+    }}
 
-}}}}
+}}

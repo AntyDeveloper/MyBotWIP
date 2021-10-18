@@ -23,7 +23,7 @@ module.exports = {
         const info = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle('Bot info')
-        .setDescription(`**UpTime** <:archive:845790563243917362>\n > ${uptime}\n\n **Użycie ramu** <:settings:845788459620499516>\n > ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(0)}mb / ${(os.totalmem() / 1024 / 1024).toFixed(0)}mb \n\n**Wszystkie serwery** <:personadd:845790111173312523>\n > ${message.client.guilds.cache.size} \n\n **Bot ping** <:chart1:845783674377338890>\n > ${message.createdTimestamp - Date.now()}ms \n\n**Bot Owner** <:personframe:845799554619670569> \n <@534781539691659264>\n\n**All commands** <:bookmark1:845798922709499954>\n > ${defaultPrefix}help\n\nBot version: ${wersja}`)
+        .setDescription(`**UpTime** <:archive:845790563243917362>\n > ${uptime}\n\n **Ram usage** <:settings:845788459620499516>\n > ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(0)}mb / ${(os.totalmem() / 1024 / 1024).toFixed(0)}mb \n\n**All servers** <:personadd:845790111173312523>\n > ${message.client.guilds.cache.size} \n\n **Bot ping** <:chart1:845783674377338890>\n > ${message.createdTimestamp - Date.now()}ms \n\n**Bot Owner** <:personframe:845799554619670569> \n <@534781539691659264>\n\n**All commands** <:bookmark1:845798922709499954>\n > ${defaultPrefix}help\n\nBot version: ${wersja}`)
         .setTimestamp()
         .setFooter(`${client.user.username}`, client.user.avatarURL())
     

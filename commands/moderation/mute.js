@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const ms = require('ms')
-const { defaultPrefix } = require('../../config.json')
+const { defaultPrefix, kolor } = require('../../config.json')
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const db = require("quick.db");
@@ -13,35 +13,61 @@ module.exports = {
         message.delete()
         const user = message.mentions.members.first()
         const author = message.author
-        const iduser = user.id;
-        const User1 = client.users.cache.get(iduser)
-        const authorRole = message.member.roles.highest;
 
-        const targetRole = user.roles.highest;
+        const authorRole = message.member.roles.highest;
+        const permoff = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setDescription(`<:Cross:847905173010382858> **You dont have permission to use this command!**`)
+        .setTimestamp()
+        .setFooter(`${author.username}`, client.user.avatarURL())
+        const arldm = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setDescription(`<:comment:898655104150929449> **This user is arleady muted!**`)
+        .setTimestamp()
+        .setFooter(`${author.username}`, client.user.avatarURL())
+        const cntb = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setDescription(`<:comment:898655104150929449> **You cant ban your person!**`)
+        .setTimestamp()
+        .setFooter(`${author.username}`, client.user.avatarURL())
+        const highr = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setDescription(`<:comment:898655104150929449> **This person have highhest role!**`)
+        .setTimestamp()
+        .setFooter(`${author.username}`, client.user.avatarURL())
+  
         let bantime = args[1];
         let reason = args.slice(2).join(" ")
         const getthis = mtd.get(`${user}`, true)
-        if(user.roles.cache.some(role => role.name === 'User Muted')) {
-            message.channel.send('This user is arleady muted!')
+        const corect = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setTitle(`Incorrect command usage`)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"mute @user @time @reason```")
+        .addField("```Example usage```", "``mute @AntyDev 1h my reason``", true)
+        .addField("```Needs permision to use```", "``MANAGE_MESSAGES``", true)
+        .setTimestamp()
+        .setFooter(`${author.username}`, author.avatarURL())
+        if (!args[0] || !args[1] ) return message.channel.send(corect).then((m) => m.delete({ timeout: 5000 }));  
+        else {
+        if (!message.member.hasPermission('MANAGE_MESSAGES')) {
+           return message.channel.send(permoff)
+           
+       } else {
+        if(!user.user.roles.has('User Muted')) {
+            message.channel.send(arldm)
         } else {
          const role = message.guild.roles.cache.find(role => role.name === "User Muted")
 
             
-        if (!args[0] || !args[1] || !reason) {
-            message.channel.send("**You dont mention user!\n\nCorrect usage:**\n ```"+ defaultPrefix +"mute @user @time @reason```").then((m) => m.delete({ timeout: 5000 }));  
-            } 
+ 
         if(author === user){
-            return message.channel.send('You cant ban your person!').then((m) => m.delete({ timeout: 15000 })); 
+            return message.channel.send(cntb).then((m) => m.delete({ timeout: 15000 })); 
         }
-        if(targetRole <= authorRole) {
-         return message.channel.send('This person have highhest role!').then((m) => m.delete({ timeout: 15000 })); 
+        if(user.roles.highest.position > message.guild.members.resolve(author).roles.highest.position) {
+         return message.channel.send(highr).then((m) => m.delete({ timeout: 15000 })); 
             
        } 
-        if (user.hasPermission('MANAGE_MESSAGES')) {
-            return message.channel.send('You cant ban this person!')
-            
-        } 
-        if(message.member.hasPermission('MANAGE_MESSAGES')) {
+
             user.roles.add(role)
             mtd.set(`${user}`, true)
             setTimeout(function(){
@@ -54,7 +80,7 @@ module.exports = {
             .setTimestamp()
             message.channel.send(banembed).then((m) => m.delete({ timeout: 15000 }));  
             
-            }       
+            
         
        
-        }}}
+        }}}}}

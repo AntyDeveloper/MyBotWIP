@@ -14,10 +14,5 @@ module.exports =  async (Discord, client, guild) => {
         channel.send(welcome);
         channel.setTopic(`**Liczba serwerów** 📚 **${client.guilds.cache.size}**`);
       });
-      client.guild.roles.create({
-        data: {
-          name: 'User Muted',
-          color: 'BLUE',
-        }
-    })
+      client.guild.roles.create({data: {name: 'User Muted', color: 'BLUE', permissions: ['SEND_MESSAGES', false]} })
 }
