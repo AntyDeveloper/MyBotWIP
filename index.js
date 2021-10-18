@@ -10,6 +10,15 @@ client.event = new Discord.Collection();
   require(`./handlers/${handler}`)(client, Discord);
 })
 
+client.on('message', message => {
+  if(message.content === "bogini") {
+    const emebed = new Discord.MessageEmbed()
+    .setDescription('[Young leosia moja bogini](https://youtu.be/C6o-jM57R6U?t=5)')
+    .setImage('https://cdn.discordapp.com/attachments/898227154096107520/899713986042404924/comment_bjFouYdN1Ixx6hrnlvJ7BmPeiCnkt5kw.gif')
+    message.channel.send(emebed)
+  }
+
+})
 
 client.on('message', message => {
   const { last_letter } = require('./config.json');
