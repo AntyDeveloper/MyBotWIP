@@ -4,6 +4,7 @@ const { defaultPrefix, kolor } = require('../../config.json')
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const db = require("quick.db");
+const prefix = require('discord-prefix');
 
 const mtd = new db.table('mtd');
 module.exports = {
@@ -24,8 +25,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"unban @user```")
-        .addField("```Example usage```", "``unban @AntyDev``", true)
+        .setDescription("**Correct usage:**\n ```"+ prefix +"unban @user```")
+        .addField("```Example usage```", "``"+ prefix +"unban @AntyDev``", true)
         .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

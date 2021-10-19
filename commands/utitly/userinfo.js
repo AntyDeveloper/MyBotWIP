@@ -6,12 +6,22 @@ const { prefix, kolor } = require('../../config.json');
 
 
 module.exports = {
-    name: 'user',
+    name: 'userinfo',
     description: 'server',
     aliases: ['info',],
     execute(client, message, args) {
-        if (!message.guild) return message.channel.send('Ta komenda może zostać użyta tylko na serwerze')
+        const user = message.mentions.members.first();
         message.delete()
+        const corect = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setTitle(`Incorrect command usage`)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"userinfo @user```")
+        .addField("```Example usage```", "``"+ defaultPrefix +"userinfo @AntyDev``", true)
+        .addField("```Needs permision to use```", "``NOT_NEED``", true)
+        .setTimestamp()
+        .setFooter(`${author.username}`, author.avatarURL())
+        if(!args[0]) return message.channel.send(corect)
+        else {
         const created = moment(message.author.createdAt).format('DD/MM/YYYY');
         const join = moment(message.member.joinedAt).format('DD/MM/YYYY');
         const info = new Discord.MessageEmbed()
@@ -22,5 +32,5 @@ module.exports = {
         .setTimestamp()
         .setFooter(`${message.author.username}`, message.author.displayAvatarURL())
         message.channel.send(info);
-    }
+    }}
 };

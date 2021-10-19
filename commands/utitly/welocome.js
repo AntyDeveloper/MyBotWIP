@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const db = require("quick.db");
 const wcha = new db.table('wcha');
 const { kolor, defaultPrefix } = require('../../config.json')
+const prefix = require('discord-prefix');
+
 module.exports = {
     name: "wscreen",
     aliases: ['welcome', 'powitanie', 'we'],
@@ -15,8 +17,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"welcome #channel #hexcolor #message```")
-        .addField("```Example usage```", "``welcome #welcome #f8d4dc Hello bro!``", true)
+        .setDescription("**Correct usage:**\n ```"+ prefix +"welcome #channel #hexcolor #message```")
+        .addField("```Example usage```", "``"+ prefix +"welcome #welcome #f8d4dc Hello bro!``", true)
         .addField("```Needs permision to use```", "``ADMINISTRATOR``", true)
         .setTimestamp()
         .setFooter(`${message.author.username}`, message.author.avatarURL())
@@ -39,7 +41,7 @@ module.exports = {
         //.addField('member count', member.guild.memberCount)
         .setThumbnail(member.user.displayAvatarURL())
         .setTimestamp()
-
+        
         message.channel.send(`This is what the invitation to this server will look like!\nIt will be sent to: <#${wcha.get(`${member.guild.id}.channel`)}>`, info)
     }
 }

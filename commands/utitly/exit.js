@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const db = require("quick.db");
 const echa = new db.table('echa');
 const { kolor, defaultPrefix } = require('../../config.json')
+const prefix = require('discord-prefix');
 
 module.exports = {
     name: "escreen",
@@ -16,8 +17,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"exit #channel #hexcolor #message```")
-        .addField("```Example usage```", "``welcome #welcome #f8d4dc Bye bro!``", true)
+        .setDescription("**Correct usage:**\n ```"+ prefix +"exit #channel #hexcolor #message```")
+        .addField("```Example usage```", "``"+ prefix +"welcome #welcome #f8d4dc Bye bro!``", true)
         .addField("```Needs permision to use```", "``ADMINISTRATOR``", true)
         .setTimestamp()
         .setFooter(`${message.author.username}`, message.author.avatarURL())
