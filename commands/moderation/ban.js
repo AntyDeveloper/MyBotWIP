@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const ms = require('ms')
-const { defaultPrefix, kolor } = require('../../config.json')
+const { kolor, defaultPrefix } = require('../../config.json')
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const prefix = require('discord-prefix');
@@ -12,7 +12,9 @@ module.exports = {
     description: 'Command to ban users!',
     async execute(client, message, args, guild) {
         message.delete()
+        
         const user = message.mentions.members.first()
+
 
         const author = message.author
         const authorRole = message.member.roles.highest;
@@ -26,8 +28,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ prefix +"ban @user @time @reason```")
-        .addField("```Example usage```", "``"+ prefix +"ban @AntyDev 1h my reason``", true)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"ban @user @time @reason```")
+        .addField("```Example usage```", "``"+ defaultPrefix +"ban @AntyDev 1h my reason``", true)
         .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

@@ -5,7 +5,6 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const db = require("quick.db");
 const prefix = require('discord-prefix');
-
 const mtd = new db.table('mtd');
 module.exports = {
     name: 'unban',
@@ -14,7 +13,7 @@ module.exports = {
         message.delete()
         let userID = args[0];
 
-        const author = message.author
+
 
         const permoff = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
@@ -25,8 +24,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ prefix +"unban @user```")
-        .addField("```Example usage```", "``"+ prefix +"unban @AntyDev``", true)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"unban @user```")
+        .addField("```Example usage```", "``"+ defaultPrefix +"unban @AntyDev``", true)
         .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

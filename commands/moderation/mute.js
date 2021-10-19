@@ -5,7 +5,6 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const db = require("quick.db");
 const prefix = require('discord-prefix');
-
 const mtd = new db.table('mtd');
 module.exports = {
     name: 'mute',
@@ -43,8 +42,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ prefix +"mute @user @time @reason```")
-        .addField("```Example usage```", "``"+ prefix +"mute @AntyDev 1h my reason``", true)
+        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"mute @user @time @reason```")
+        .addField("```Example usage```", "``"+ defaultPrefix +"mute @AntyDev 1h my reason``", true)
         .addField("```Needs permision to use```", "``MANAGE_MESSAGES``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

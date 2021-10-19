@@ -32,7 +32,7 @@ module.exports = {
             .setFooter(`${footerbota}`)
             message.channel.send(embed5).then((m) => m.delete({ timeout: 15000 }));   
 
-        }
+        } else {
         if (prefix1 < 1){
             prefix.setPrefix(`${defaultPrefix}`, `${member.guild.id}`)
 
@@ -51,6 +51,7 @@ module.exports = {
             .setFooter(`${footerbota}`)
             if (args.length > 2) return message.channel.send(embed2).then((m) => m.delete({ timeout: 15000 }));  
         }
+        
             if (args.length = 2)
             prefix.setPrefix(`${prefix1}`, `${member.guild.id}`);
     
@@ -60,5 +61,5 @@ module.exports = {
             .setFooter(`${footerbota}`)
     
             message.channel.send(embed3).then((m) => m.delete({ timeout: 15000 }));  
-    }}
+    }}}
 }
