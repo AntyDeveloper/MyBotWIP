@@ -27,6 +27,7 @@ module.exports = (Discord, client, message) => {
         message.delete()
         message.author.send('Zostałeś zblacklistowany z bota przez Ownera')
     } else 
+    if (!command) return message.channel.send("The command does not exist.").then((m) => m.delete({ timeout: 3000 }));
     if (command) command.execute(client, message, args, Discord); {
 
     }
