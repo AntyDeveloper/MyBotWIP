@@ -30,7 +30,7 @@ module.exports = {
         .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())
-        if (!args[0] || !args[1] ) return message.channel.send(corect).then((m) => m.delete({ timeout: 5000 }));  
+        if (!args[0] || !args[1] || !reason ) return message.channel.send(corect).then((m) => m.delete({ timeout: 5000 }));  
         
              else {
                 if (!message.member.hasPermission('BAN_MEMBERS')) {
