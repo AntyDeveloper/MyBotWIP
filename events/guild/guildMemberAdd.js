@@ -1,16 +1,17 @@
 const db = require("quick.db");
-const bldd2 = new db.table('bldd2');
-
-const bldd = new db.table('bldd');
+const wcha = new db.table('wcha');
 
 module.exports =  async (Discord, client, member) => {
+    const welcome = new Discord.MessageEmbed()
+    .setColor(wcha.get(`${member.guild.id}.color`))
+    .setTitle(`Welcome on: ${member.guild.name}!`)
+    .setDescription(`${member.user}, ` + wcha.get(`${member.guild.id}.text`))
+    //.addField('member count', member.guild.memberCount)
+    .setThumbnail(member.user.displayAvatarURL())
+    .setTimestamp()
+
+    const channel = member.guild.channels.cache.find(ch => ch.id === wcha.get(`${member.guild.id}.channel`))
+    channel.send(member.user).then((m) => m.delete({ timeout: 3000 }))
+    channel.send(welcome)
     
-       let fetched = bldd.get(`blacklist_${member}`) 
-       let fetched2 = bldd2.get(`blacklist_${member1}`) 
-       if (!fetched) {
-       client.users.get(fetched2).send("Masz blackliste byczqu!");
-      
-               console.log("ta")
-       }
-       
 }
