@@ -8,7 +8,6 @@ module.exports = {
     aliases: ['setp', 'stp'],
     usage: "setprefix <prefix>",
     async execute(client, message, args) {
-        message.delete()
         const permoff = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setDescription(`<:Cross:847905173010382858> **You dont have permission!**`)

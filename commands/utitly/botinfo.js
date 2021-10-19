@@ -11,7 +11,6 @@ module.exports = {
         aliases: ['bot'],
 	description: 'botifno comand',
 	execute(client, message, args) {
-        message.delete()
         let totalSeconds = (client.uptime / 1000);
         let days = Math.floor(totalSeconds / 86400);
         totalSeconds %= 86400;

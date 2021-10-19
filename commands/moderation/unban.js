@@ -10,7 +10,6 @@ module.exports = {
     name: 'unban',
     description: 'Command to unban users!',
     async execute(client, message, args) {
-        message.delete()
         let userID = args[0];
 
 

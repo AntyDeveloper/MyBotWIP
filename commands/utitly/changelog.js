@@ -6,7 +6,6 @@ module.exports = {
     name: "changelog",
     aliases: ['chl', 'chlog'],
     async execute(client, message, args) {
-        message.delete()
         const send = moment(new Date()).format('DD/MM/YYYY');
         const permoff = new Discord.MessageEmbed()
         .setColor(`${kolor}`)

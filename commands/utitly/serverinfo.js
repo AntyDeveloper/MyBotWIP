@@ -12,7 +12,6 @@ module.exports = {
     description: 'server',
     aliases: ['server',],
     execute(client, message, args) {
-        message.delete()
         const created = moment(message.author.createdAt).format('DD/MM/YYYY');
         const join = moment(message.member.joinedAt).format('DD/MM/YYYY');
         const info = new Discord.MessageEmbed()

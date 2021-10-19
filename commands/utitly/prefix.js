@@ -6,7 +6,6 @@ module.exports = {
     name: "prefix",
     aliases: [],
     async execute(client, message, args) {
-        message.delete()
         let member = message.member
         const prefixd = prefix.getPrefix(`${member.guild.id}`)
 

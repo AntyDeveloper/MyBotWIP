@@ -10,7 +10,6 @@ module.exports = {
     name: 'mute',
     description: 'Command to ban users!',
     async execute(client, message, args) {
-        message.delete()
         const user = message.mentions.members.first()
         const author = message.author
 

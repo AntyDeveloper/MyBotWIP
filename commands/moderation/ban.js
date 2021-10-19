@@ -11,7 +11,7 @@ module.exports = {
     name: 'ban',
     description: 'Command to ban users!',
     async execute(client, message, args, guild) {
-        message.delete()
+        
         
         const user = message.mentions.members.first()
 

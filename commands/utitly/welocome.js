@@ -9,7 +9,6 @@ module.exports = {
     aliases: ['welcome', 'powitanie', 'we'],
     usage: "wscreen <kanał> <kolor-HEX> <wiadomość>",
     async execute(client, message, args) {
-        message.delete()
 
 
         const permoff = new Discord.MessageEmbed()

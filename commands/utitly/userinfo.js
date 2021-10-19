@@ -11,7 +11,6 @@ module.exports = {
     aliases: ['info',],
     execute(client, message, args) {
         const user = message.mentions.members.first();
-        message.delete()
         const author = message.author
 
 

@@ -11,7 +11,6 @@ module.exports = {
     name: 'unmute',
     description: 'Command to unmute users!',
     async execute(client, message, args) {
-        message.delete()
         const user = message.mentions.members.first()
         const author = message.author
 
