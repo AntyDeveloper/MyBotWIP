@@ -30,7 +30,7 @@ module.exports = {
         const info = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setThumbnail(`${message.author.avatarURL()}`)
-        .setTitle('Informacje o użytkowniku')
+        .setTitle(`Information about user`)
         .setDescription(`**Username** <:personframe:845799554619670569>\n> ${user.user.tag}\n\n**Account create** <:settings:845788459620499516>\n> ${created}\n\n**Join date** <:personadd:845790111173312523>\n > ${join}`)
         .setTimestamp()
         .setFooter(`${message.author.username}`, message.author.displayAvatarURL())

@@ -12,7 +12,7 @@ module.exports = (Discord, client, message) => {
     .setFooter(`${footerbota}`)
     if (!message.guild) return message.author.send(embed1);
     let guildPrefix = prefix.getPrefix(message.guild.id);
-    if (!guildPrefix) guildPrefix = defaultPrefix;
+    if (!guildPrefix) guildPrefix = defaultPrefix
     
     if (!message.content.startsWith(guildPrefix) && !message.content.startsWith(guildPrefix.toUpperCase())) return;
 
