@@ -36,7 +36,7 @@ module.exports = {
 
         const info = new Discord.MessageEmbed()
         .setColor(echa.get(`${member.guild.id}.color`))
-        .setTitle(`Godbye from: ${member.guild.name}!`)
+        .setTitle(`Goodbye from: ${member.guild.name}!`)
         .setDescription(`${member.user}, ` + echa.get(`${member.guild.id}.text`))
         //.addField('member count', member.guild.memberCount)
         .setThumbnail(member.user.displayAvatarURL())
