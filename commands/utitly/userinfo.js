@@ -6,20 +6,20 @@ const {  kolor, defaultPrefix } = require('../../config.json');
 const prefix = require('discord-prefix');
 
 module.exports = {
-    name: 'userinfo',
+    name: 'user',
     description: 'server',
-    aliases: ['info',],
     execute(client, message, args) {
         const user = message.mentions.members.first();
         const author = message.author
 
-
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+        if (!guildPrefix) guildPrefix = defaultPrefix;
 
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"userinfo @user```")
-        .addField("```Example usage```", "``"+ defaultPrefix +"userinfo @AntyDev``", true)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"user @user```")
+        .addField("```Example usage```", "``"+ guildPrefix +"user @AntyDev``", true)
         .addField("```Needs permision to use```", "``NOT_NEED``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

@@ -8,53 +8,68 @@ module.exports = {
     aliases: ['g-create'],
 	description: 'Tworzy giveaway-a',
 	execute(client, message, args) {
-        if (!message.guild) return message.channel.send('Ta komenda może zostać użyta tylko na serwerze')
-        if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send('❌ Nie masz permisji aby użyć tej komendy!')
-        if (!args.length) return message.channel.send('Nieprawidlowe uzycie');
-
+        const author = message.author
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+        if (!guildPrefix) guildPrefix = defaultPrefix;
         let time = args[0]
         let zwycięzcy = args[1]
         let prize = args.slice(2).join(" ");
+        const permoff = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setDescription(`<:Cross:847905173010382858> **You dont have permission to use this command!**`)
+        .setTimestamp()
+        .setFooter(`${author.username}`, author.avatarURL())
+        if (!message.member.permissions.has('ADMINISTRATOR')) return message.channel.send(permoff).then((m) => m.delete({ timeout: 5000 }));     
+        if (!args[0] || !args[1] || !prize ) return message.channel.send(corect).then((m) => m.delete({ timeout: 5000 }));        
+        const corect = new Discord.MessageEmbed()
+        .setColor(`${kolor}`)
+        .setTitle(`Incorrect command usage`)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"giveaway <time> <ammount of winner> <reward>```")
+        .addField("```Example usage```", "``"+ guildPrefix +"giveaway 1h 1 reward``", true)
+        .addField("```Needs permision to use```", "``ADMINISTRATOR``", true)
+        .setTimestamp()
+        .setFooter(`${author.username}`, author.avatarURL())
 
-        if (!time) return message.channel.send('Nie podałeś czasu');
-        if (!time.endsWith("d") && !time.endsWith("h") && !time.endsWith("m")) return message.channel.send(`Czas musi zostać podany w dniach (d) albo w godzinach (h) albo w minutach (m)`);
-        if (!zwycięzcy) return message.channel.send('Nie podałeś ilości zwycięzców (od 1 do 10)');
-        if (isNaN(zwycięzcy)) return message.channel.send('Liczba osób musi być liczbą, wiedziałeś/aś?');
-        if (zwycięzcy < 1 || zwycięzcy > 10) return message.channel.send('Zła ilość zwycięzców (od 1 do 10)');
-        if (!prize) return message.channel.send('Nie podałeś nagrody');
+
+        if (!time) return message.channel.send('You did not specify the time');
+        if (!time.endsWith("d") && !time.endsWith("h") && !time.endsWith("m")) return message.channel.send(`The time shall be specified in days (d) or in hours (h) or in minutes (m)`);
+        if (!zwycięzcy) return message.channel.send('You did not specify the number of winners (from 1 to 10)');
+        if (isNaN(zwycięzcy)) return message.channel.send('The number of people must be a number, did you know?');
+        if (zwycięzcy < 1 || zwycięzcy > 10) return message.channel.send('Wrong number of winners (from 1 to 10)');
+        if (!prize) return message.channel.send('You did not specify the prize');
 
         if (time.endsWith("d")) time = (time.slice(0, -1) * 86400000).toFixed(0)
         if (time.endsWith("h")) time = (time.slice(0, -1) * 3600000).toFixed(0)
         if (time.endsWith("m")) time = (time.slice(0, -1) * 60000).toFixed(0)
 
-        if (isNaN(time)) return message.channel.send('Czas musi być liczbą, wiedziałeś/aś?');
-        if (time > 1209600000) return message.channel.send('Maxymalny czas wynosi 14d');
-        if (time < 600000) return message.channel.send('Minimalny czas wynosi 10m');
+        if (isNaN(time)) return message.channel.send('Time must be a number, did you know?');
+        if (time > 1209600000) return message.channel.send('The maximum time is 14d');
+        if (time < 600000) return message.channel.send('The minimum time is 10m');
 
         const timeEnd = Date.now() + parseInt(time)
         const end = moment(timeEnd).format('HH:mm:ss DD/MM/YYYY');
 
         const embed1 = new Discord.MessageEmbed()
-        .setTitle('<:gift1:845982652242984960> Nowy giveaway! <:gift1:845982652242984960>')
+        .setTitle('<:gift1:845982652242984960> New giveaway! <:gift1:845982652242984960>')
         .setColor('BLUE')
-        .setDescription(`Host: ${message.author}\nNagroda: **${prize}**\nCzas trwania: ${args[0]}\nKończy się o: *${end}*`)
+        .setDescription(`Host: ${message.author}\nPrize: **${prize}**\nDuration: ${args[0]}\nEnds at: *${end}*`)
         .setFooter(`Aby anulować giveaway Host musi zareagować ❌`)
 
         const embed2 = new Discord.MessageEmbed()
-        .setTitle("Giveaway zakończony!")
+        .setTitle("Giveaway completed!")
         .setColor("RED")
-        .setDescription("Brak zwycięzców, nikt nie wziął udziału w giveaway-u :(")
-        .setFooter(`Zakończono o: ${end}`)
+        .setDescription("No winners, nobody took part in the giveaway :(")
+        .setFooter(`Ends at: ${end}`)
 
         const embed3 = new Discord.MessageEmbed()
-        .setTitle("Giveaway zakończony!")
+        .setTitle("Giveaway completed!")
         .setColor("GREEN")
-        .setFooter(`Zakończono o: ${end}`)
+        .setFooter(`Ends at: ${end}`)
 
         const embed4 = new Discord.MessageEmbed()
-        .setTitle("Giveaway anulowany :c")
+        .setTitle("Giveaway cancelled :c")
         .setColor("ORANGE")
-        .setDescription(`Host: ${message.author}\nNagroda: **${prize}**`)
+        .setDescription(`Host: ${message.author}\nPrize: **${prize}**`)
 
         message.delete()
         message.channel.send(embed1).then(m => {
@@ -71,7 +86,7 @@ module.exports = {
                 let emoji = collected.emoji.name;
     
                 if (emoji === "❌") {
-                    message.channel.send(`${message.author}, Czy jesteś pewnien że chcesz zamknąć tego giveaway-a?`).then(msg => {
+                    message.channel.send(`${message.author}, Are you sure you want to close this giveaway?`).then(msg => {
                         msg.react("✅")
                         msg.react("❌")
                         
@@ -89,10 +104,10 @@ module.exports = {
                                 let emoji = userReaction._emoji.name;
                                 
                                 if (emoji === "✅") {
-                                    embed4.setFooter(`Giveaway anulowany przez: ${message.author.tag}`)
+                                    embed4.setFooter(`Giveaway cancelled by: ${message.author.tag}`)
                                     m.edit(embed4)
                                     collector1.stop()
-                                    msg.edit("Giveaway został anulowany")
+                                    msg.edit("Giveaway cancelled")
                                     m.reactions.removeAll()
                                     return msg.delete({ timeout: 3000 })
                                 } else if (emoji === "❌") {
@@ -115,11 +130,11 @@ module.exports = {
                     const winners = m.reactions.cache.get("🎉").users.cache.filter((b) => !b.bot).random(zwycięzcy).join("\n")
 
                     if (zwycięzcy > 1 && m.reactions.cache.get("🎉").count > 2) {  
-                        message.channel.send(`Zwycięzcami giveaway-u zostali:\n${winners}\nWygrali: **${prize}**!`)
-                        embed3.setDescription(`Nagroda: **${prize}**\nZwycięzcy:\n${winners}\nWszyscy uczestnicy: ${m.reactions.cache.get("🎉").count - 1}`)
+                        message.channel.send(`The winners of the giveaway are:**${winners}: **${prize}**!`)
+                        embed3.setDescription(`Prize: **${prize}**Winners:$${winners}** All participants: ${m.reactions.cache.get("🎉").count - 1}`)
                     } else {
-                        message.channel.send(`Zwycięzcą giveaway-u został:\n${winners}\nWygrał: **${prize}**`)
-                        embed3.setDescription(`Nagroda: **${prize}**\nZwycięzca: ${winners}\nWszyscy uczestnicy: ${m.reactions.cache.get("🎉").count - 1}`)
+                        message.channel.send(`The winner of the giveaway is:**${winners} **${prize}**.`)
+                        embed3.setDescription(`Prize: **${prize}**Winner:${winners}** All participants: ${m.reactions.cache.get("🎉").count - 1}`)
                     }
                     m.edit(embed3)
                     m.reactions.removeAll()

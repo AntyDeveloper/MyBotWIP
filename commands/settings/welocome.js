@@ -10,7 +10,8 @@ module.exports = {
     usage: "wscreen <kanał> <kolor-HEX> <wiadomość>",
     async execute(client, message, args) {
 
-
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+        if (!guildPrefix) guildPrefix = defaultPrefix;
         const permoff = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setDescription(`<:Cross:847905173010382858> **You dont have permission!**`)
@@ -18,8 +19,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"welcome #channel #hexcolor #message```")
-        .addField("```Example usage```", "``"+ defaultPrefix +"welcome #welcome #f8d4dc Hello bro!``", true)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"welcome #channel #hexcolor #message```")
+        .addField("```Example usage```", "``"+ guildPrefix +"welcome #welcome #f8d4dc Hello bro!``", true)
         .addField("```Needs permision to use```", "``ADMINISTRATOR``", true)
         .setTimestamp()
         .setFooter(`${message.author.username}`, message.author.avatarURL())

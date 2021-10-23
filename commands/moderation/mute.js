@@ -6,10 +6,13 @@ client.commands = new Discord.Collection();
 const db = require("quick.db");
 const prefix = require('discord-prefix');
 const mtd = new db.table('mtd');
+
 module.exports = {
     name: 'mute',
     description: 'Command to ban users!',
     async execute(client, message, args) {
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+if (!guildPrefix) guildPrefix = defaultPrefix;
         const user = message.mentions.members.first()
         const author = message.author
 
@@ -18,22 +21,22 @@ module.exports = {
         .setColor(`${kolor}`)
         .setDescription(`<:Cross:847905173010382858> **You dont have permission to use this command!**`)
         .setTimestamp()
-        .setFooter(`${author.username}`, client.user.avatarURL())
+        .setFooter(`${author.username}`, author.avatarURL())
         const arldm = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setDescription(`<:comment:898655104150929449> **This user is arleady muted!**`)
         .setTimestamp()
-        .setFooter(`${author.username}`, client.user.avatarURL())
+        .setFooter(`${author.username}`, author.avatarURL())
         const cntb = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setDescription(`<:comment:898655104150929449> **You cant ban your person!**`)
         .setTimestamp()
-        .setFooter(`${author.username}`, client.user.avatarURL())
+        .setFooter(`${author.username}`, author.avatarURL())
         const highr = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setDescription(`<:comment:898655104150929449> **This person have highhest role!**`)
         .setTimestamp()
-        .setFooter(`${author.username}`, client.user.avatarURL())
+        .setFooter(`${author.username}`, author.avatarURL())
   
         let bantime = args[1];
         let reason = args.slice(2).join(" ")
@@ -41,8 +44,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"mute @user @time @reason```")
-        .addField("```Example usage```", "``"+ defaultPrefix +"mute @AntyDev 1h my reason``", true)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"mute @user @time @reason```")
+        .addField("```Example usage```", "``"+ guildPrefix +"mute @AntyDev 1h my reason``", true)
         .addField("```Needs permision to use```", "``MANAGE_MESSAGES``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

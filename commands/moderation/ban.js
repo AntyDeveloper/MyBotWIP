@@ -14,7 +14,8 @@ module.exports = {
         
         
         const user = message.mentions.members.first()
-
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+        if (!guildPrefix) guildPrefix = defaultPrefix;
 
         const author = message.author
         const authorRole = message.member.roles.highest;
@@ -28,8 +29,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"ban @user @time @reason```")
-        .addField("```Example usage```", "``"+ defaultPrefix +"ban @AntyDev 1h my reason``", true)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"ban @user @time @reason```")
+        .addField("```Example usage```", "``"+ guildPrefix +"ban @AntyDev 1h my reason``", true)
         .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

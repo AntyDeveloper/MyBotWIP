@@ -8,13 +8,15 @@ module.exports = {
     name: "clear",
     aliases: [],
     async execute(client, message, guild, args) {
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+if (!guildPrefix) guildPrefix = defaultPrefix;
         let member = message.member
         const prefixd = prefix.getPrefix(`${member.guild.id}`)
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"clear #message ammount```")
-        .addField("```Example usage```", "``"+ defaultPrefix +"clear 10``", true)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"clear #message ammount```")
+        .addField("```Example usage```", "``"+ guildPrefix +"clear 10``", true)
         .addField("```Needs permision to use```", "``MANAGE_MESSAGES``", true)
         .setTimestamp()
         .setFooter(`${message.author.username}`, message.author.avatarURL())

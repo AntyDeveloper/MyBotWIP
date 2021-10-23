@@ -6,13 +6,15 @@ client.commands = new Discord.Collection();
 const db = require("quick.db");
 const prefix = require('discord-prefix');
 const mtd = new db.table('mtd');
+
 module.exports = {
     name: 'unban',
     description: 'Command to unban users!',
     async execute(client, message, args) {
         let userID = args[0];
 
-
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+        if (!guildPrefix) guildPrefix = defaultPrefix;
 
         const permoff = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
@@ -23,8 +25,8 @@ module.exports = {
         const corect = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
         .setTitle(`Incorrect command usage`)
-        .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"unban @user```")
-        .addField("```Example usage```", "``"+ defaultPrefix +"unban @AntyDev``", true)
+        .setDescription("**Correct usage:**\n ```"+ guildPrefix +"unban @user```")
+        .addField("```Example usage```", "``"+ guildPrefix +"unban @AntyDev``", true)
         .addField("```Needs permision to use```", "``BAN_MEMBERS``", true)
         .setTimestamp()
         .setFooter(`${author.username}`, author.avatarURL())

@@ -8,19 +8,21 @@ const { prefix, kolor } = require('../../config.json');
 
 
 module.exports = {
-    name: 'serverinfo',
+    name: 'server',
     description: 'server',
-    aliases: ['server',],
+    aliases: ['',],
     execute(client, message, args) {
+        const author = message.author
+
         const created = moment(message.author.createdAt).format('DD/MM/YYYY');
         const join = moment(message.member.joinedAt).format('DD/MM/YYYY');
         const info = new Discord.MessageEmbed()
         .setColor(`${kolor}`)
-        .setTitle('Informacje o serwerze')
-        .setThumbnail(`${client.user.avatarURL()}`)
+        .setTitle('Informations about server')
+        .setThumbnail(`${message.guild.iconURL()}`)
         .setDescription(`**Server name** <:globe:845819287289331753>\n> ${message.guild.name}\n\n**Server owner** <:personframe:845799554619670569>\n> ${message.guild.owner}\n\n**User ammount** <:chart1:845783674377338890>\n> ${message.guild.memberCount}\n\n**Create date** <:archive:845790563243917362>\n> ${created}\n\n**Join date** <:personadd:845790111173312523>\n > ${join}\n\n **Server ID** <:checklist:845975219914801152>\n> ${message.guild.id}`)
         .setTimestamp()
-        .setFooter(`${client.user.username}`)
+        .setFooter(`${author.username}`, author.avatarURL())
     
         message.channel.send(info);
     }

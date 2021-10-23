@@ -13,7 +13,8 @@ module.exports = {
     async execute(client, message, args) {
         const user = message.mentions.members.first()
         const author = message.author
-
+        let guildPrefix = prefix.getPrefix(message.guild.id);
+        if (!guildPrefix) guildPrefix = defaultPrefix;
         const authorRole = message.member.roles.highest;
         const role = message.guild.roles.cache.find(role => role.name === "User Muted")
         const arldd = new Discord.MessageEmbed()
@@ -35,8 +36,8 @@ module.exports = {
             const corect = new Discord.MessageEmbed()
             .setColor(`${kolor}`)
             .setTitle(`Incorrect command usage`)
-            .setDescription("**Correct usage:**\n ```"+ defaultPrefix +"mute @user @time @reason```")
-            .addField("```Example usage```", "``"+ defaultPrefix +"mute @AntyDev 1h my reason``", true)
+            .setDescription("**Correct usage:**\n ```"+ guildPrefix +"mute @user @time @reason```")
+            .addField("```Example usage```", "``"+ guildPrefix +"mute @AntyDev 1h my reason``", true)
             .addField("```Needs permision to use```", "``MANAGE_MESSAGES``", true)
             .setTimestamp()
             .setFooter(`${author.username}`, author.avatarURL())

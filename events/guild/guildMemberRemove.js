@@ -5,7 +5,7 @@ module.exports =  async (Discord, client, member) => {
     const exit = new Discord.MessageEmbed()
     .setColor(echa.get(`${member.guild.id}.color`))
     .setTitle(`Goodbye from: ${member.guild.name}!`)
-    .setDescription(`${member.user}, ` + echa.get(`${member.guild.id}.text`))
+    .setDescription(`${member.user.tag}, ` + echa.get(`${member.guild.id}.text`))
     //.addField('member count', member.guild.memberCount)
     .setThumbnail(member.user.displayAvatarURL())
     .setTimestamp()
