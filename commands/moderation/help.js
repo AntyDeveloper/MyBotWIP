@@ -23,6 +23,10 @@ module.exports = {
     .setStyle('green')
     .setLabel('🔰» Utitly')
     .setID('helputilb')
+    let help4funb = new disbut.MessageButton()
+    .setStyle('blurple')
+    .setLabel('🃏» 4Fun')
+    .setID('help4funn')
     let helpsettingsb = new disbut.MessageButton()
     .setStyle('blurple')
     .setLabel('⚙» Settings')
@@ -34,7 +38,7 @@ module.exports = {
     .setDisabled()
     
     const help1 = new Discord.MessageEmbed()
-    .setDescription(`**Commands categories**\n\n🛑» Moderation\n🔰» Utitly\n⚙» Settings\n💰» Economy [soon]`)
+    .setDescription(`**Commands categories**\n\n🛑» Moderation\n🔰» Utitly\n🃏» 4Fun\n⚙» Settings\n💰» Economy [soon]`)
     .addFields(
 		{ name: 'Credits', value: 'Bot owner <@534781539691659264>', inline: true },
 		{ name: 'Inline field title', value: 'Some value here', inline: true },
@@ -63,6 +67,19 @@ module.exports = {
 
     )
     .setTimestamp()
+    const help4fun = new Discord.MessageEmbed()
+    .setDescription("**All moderation commands**")
+    .addFields(
+        { name: ""+ guildPrefix +"anime", value: "Command to search anime! ```Example usage: "+ guildPrefix +"anime naruto```" },
+        { name: ""+ guildPrefix +"cat", value: "Command to random cat image! ```Example usage: "+ guildPrefix +"cat```" },
+        { name: ""+ guildPrefix +"dog", value: "Command to random dog image ```Example usage: "+ guildPrefix +"dog```" },
+        { name: ""+ guildPrefix +"fox", value: "Command to random fox image```Example usage: "+ guildPrefix +"fox```" },
+        { name: ""+ guildPrefix +"hug", value: "Command to hug mention user! ```Example usage: "+ guildPrefix +"hug @Aspoleczny```" },
+        { name: ""+ guildPrefix +"pat", value: "Command to pat mention user! ```Example usage: "+ guildPrefix +"pat @Aspoleczny```" },
+        { name: ""+ guildPrefix +"slap", value: "Command to slap mention user! ```Example usage: "+ guildPrefix +"slap @Aspoleczny```" },
+        { name: ""+ guildPrefix +"rwifu", value: "Command to random wifu image! ```Example usage: "+ guildPrefix +"wifu```" },
+        { name: ""+ guildPrefix +"rianime", value: "Command to random anime image```Example usage: "+ guildPrefix +"rianime```" },
+    )
     const helpsettings = new Discord.MessageEmbed()
     .setDescription(`**All Commands**`)
     .addFields(
@@ -77,6 +94,7 @@ module.exports = {
     const row = new disbut.MessageActionRow()
     .addComponent(helpmodb)
     .addComponent(helputilb)
+    .addComponent(help4funb)
     .addComponent(helpsettingsb)
     .addComponent(economyb)
     const msg = await message.channel.send(help1, { components: [row]})
@@ -89,6 +107,12 @@ module.exports = {
       client.on('clickButton', async button => {
         if (button.id == 'helputilb') {
            msg.edit(helputil, { components: [row]})
+           button.reply.defer()
+        }
+      })
+      client.on('clickButton', async button => {
+        if (button.id == 'help4funn') {
+           msg.edit(help4fun, { components: [row]})
            button.reply.defer()
         }
       })

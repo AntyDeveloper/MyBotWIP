@@ -32,7 +32,7 @@ module.exports = {
 
         let wiadomosc = args.slice(2).join(" ")
         //if (wiadomosc.includes('{member}')) wiadomosc = wiadomosc.replace(/{member}/g, '${member}')
-
+        let member = message.member
         echa.set(`${member.guild.id}`, { color: color, text: wiadomosc, channel: channel.id})
 
         const info = new Discord.MessageEmbed()

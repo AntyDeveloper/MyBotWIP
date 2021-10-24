@@ -29,6 +29,7 @@ module.exports = {
         const channel = message.mentions.channels.first()
         const color = args[1]
         if (!/^#[0-9A-F]{6}$/i.test(color)) return message.channel.send(`Bad HEX color`)
+        let member = message.member
 
         let wiadomosc = args.slice(2).join(" ")
         //if (wiadomosc.includes('{member}')) wiadomosc = wiadomosc.replace(/{member}/g, '${member}')

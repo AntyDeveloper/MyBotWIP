@@ -10,7 +10,6 @@ const { prefix, kolor } = require('../../config.json');
 module.exports = {
     name: 'server',
     description: 'server',
-    aliases: ['',],
     execute(client, message, args) {
         const author = message.author
 
