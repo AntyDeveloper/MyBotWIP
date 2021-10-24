@@ -97,7 +97,7 @@ module.exports = {
     .addComponent(help4funb)
     .addComponent(helpsettingsb)
     .addComponent(economyb)
-    const msg = await message.channel.send(help1, { components: [row]})
+    const msg = await message.channel.send(help1, { components: [row]}).then((m) => m.delete({ timeout: 150000 }))
     client.on('clickButton', async button => {
         if (button.id == 'helpmodb') {
            msg.edit(helpmod, { components: [row]})
